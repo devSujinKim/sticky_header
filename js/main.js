@@ -1,38 +1,73 @@
-var emptyArea = document.querySelector('.empty-area'),
-    header = document.querySelector('header'),
-    emptyHeight = emptyArea.clientHeight,
-    headerHeight = header.clientHeight;
+/* 
+js 
+*/
 
-window.addEventListener('scroll', function(){
-    currentOffset = window.pageYOffset;
-    if(currentOffset > emptyHeight + headerHeight){
-        header.classList.add('sticky');
-    }else {
-        header.classList.remove('sticky');
-    }
+/*
+var header = document.querySelector('header'),
+	headerHeight = header.clientHeight,
+	emptyArea = document.querySelector('.empty-area'),
+	emptyHeight = emptyArea.clientHeight;
+
+window.addEventListener('scroll', function () {
+	var scrollOffset = window.pageYOffset;
+	if (scrollOffset > emptyHeight + headerHeight) {
+		header.classList.add('sticky');
+	} else {
+		header.classList.remove('sticky');
+	}
 });
 
 var logo = document.querySelector('.logo');
-    logo.addEventListener('dblclick', function(){
-    header.classList.add('edit');    
-    });
 
-var input = document.querySelector('header input'),
-    span = document.querySelector('h1 span');
+logo.addEventListener('dblclick', function (e) {
+	e.preventDefault();
+	header.classList.add('edit');
+});
 
-    input.addEventListener('keydown', function(ev){
-        if(ev.keyCode === 13){
-            var text = this.value;
-            span.innerText = text;
-            this.value = '';
-            header.classList.remove('edit');
-        }
-    });
+var input = document.querySelector('input');
+var spanInLogo = document.querySelector('.logo span');
+
+input.addEventListener('keydown', function (e) {
+	if (e.keyCode === 13) {
+		var text = this.value;
+		spanInLogo.innerText = text;
+		this.value = '';
+		header.classList.remove('edit');
+	}
+});
+*/
+
+/*
+jquery
+*/
+
+var header = $('header'),
+    emptyArea = $('.empty-area'),
+    headerHeight = header.outerHeight(),
+    emptyHeight = emptyArea.outerHeight(),
+    totalHeight = headerHeight + emptyHeight;
     
-    
-    
-    
-    
-    
-    
-    
+$(window).scroll(function(){
+    var scrollOffset = window.pageYOffset;
+    if(scrollOffset >= totalHeight){
+        header.addClass('sticky');
+    } else{
+        header.removeClass('sticky');
+    }
+});
+
+var logo = $('.logo');
+logo.dblclick(function(){
+    header.addClass('edit');
+});
+
+var input = $('input'),
+    spanInLogo = $('.logo span');
+input.keydown(function(e){
+    if(e.which === 13){
+        var text = $(this).val();
+        spanInLogo.text(text);
+        $(this).val('');
+        header.removeClass('edit');
+    }
+});
